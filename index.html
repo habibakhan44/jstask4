@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: grey;
+        }
+
+        .calculator-box {
+            background-color: palegreen;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .Numbers {
+            margin-bottom: 20px;
+        }
+
+        .operators-container {
+            margin-top: 10px;
+        }
+
+        .operators-container button {
+            margin-right: 5px;
+            padding: 10px;
+            background-color: #f4a261;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+       
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .operators-container button:active {
+            animation: bounce 0.3s ease;
+        }
+
+        .result-container {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .operator-label {
+            margin-top: 10px;
+            font-size: 16px;
+            color: peru;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 10px;
+            background-color: palevioletred;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator-box">
+        <h2>Basic Calculator</h2>
+        <div class="Numbers">
+            <label for="number1">Enter First Number:</label>
+            <input id="number1" type="number" />
+            <br/><br/>
+            <label for="number2">Enter Second Number:</label>
+            <input id="number2" type="number" />
+            <br/><br/>
+            <label for="selectedOperator">Selected Operator:</label>
+            <span id="operatorLabel" class="operator-label"></span>
+            <br/><br/>
+            <button class="btn" onclick="calculate()">Calculate</button>
+        </div>
+
+        <div class="operators-container">
+            <button onclick="setOperator('+')">+</button>
+            <button onclick="setOperator('-')">-</button>
+            <button onclick="setOperator('*')">*</button>
+            <button onclick="setOperator('/')">/</button>
+        </div>
+
+        <div class="result-container">
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        let selectedOperator = '';
+
+        function setOperator(operator) {
+            selectedOperator = operator;
+            document.getElementById("operatorLabel").innerText = operator;
+        }
+
+        function calculate() {
+            let number1 = (document.getElementById("number1").value);
+            let number2 =(document.getElementById("number2").value);
+
+            let result;
+
+            if (selectedOperator === '+') {
+                result = number1 + number2;
+            } else if (selectedOperator === '-') {
+                result = number1 - number2;
+            } else if (selectedOperator === '*') {
+                result = number1 * number2;
+            } else if (selectedOperator === '/') {
+                if (number2 === 0) {
+                    document.getElementById("result").innerText = "Division by zero is not allowed.";
+                    return;
+                }
+                result = number1 / number2;
+            } else {
+                document.getElementById("result").innerText = "Invalid operator.";
+                return;
+            }
+
+            document.getElementById("result").innerText = `Your answer is: ${number1} ${selectedOperator} ${number2} = ${result}`;
+        }
+    </script>
+
+</body>
+</html>
